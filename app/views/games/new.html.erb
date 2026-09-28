@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="text-center">New Game</h1>
+
+  <div class="d-flex justify-content-center my-3">
+    <% @letters_array.each do |letter| %>
+    <div class="bg-primary text-white border rounded m-1 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold;">
+    <%= letter.capitalize %>
+    </div>
+    <% end %>
+  </div>
+
+  <form action="/score" method="post" data-turbo="false">
+    <div class="mb-3">
+      <label for="answer" class="form-label">What is the longest word you can make?</label>
+      <input type="text" id="answer" name="answer" class="form-control">
+    </div>
+    <input type="hidden" name="letters" value="<%= @letters_array.join %>">
+    <input type="hidden" name="start_time" value="<%= Time.now.to_i %>">
+    <input type="submit" value="Play" class="btn btn-primary">
+
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  </form>
+</div>
